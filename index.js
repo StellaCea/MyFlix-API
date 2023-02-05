@@ -9,6 +9,21 @@ const app = express();
 // a 'log.txt' file is created in root directory
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
 
+let topMovies = [
+    {
+        title: 'Harry Potter and the Sorcerer\'s stone',
+        director: 'Chris Columbus'
+    },
+    {
+        title: 'Lord of the Rings',
+        director: 'Peter Jackson'
+    },
+    {
+        title: 'Avatar',
+        director: 'James Cameron'
+    }
+]
+
 //use express static to serve doc.html
 app.use(express.static('public'));
 
