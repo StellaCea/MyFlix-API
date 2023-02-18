@@ -1,10 +1,12 @@
 {
   "name": "c",
   "version": "1.0.0",
-  "description": "",
+  "description": "The web application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,11 @@
   "homepage": "https://github.com/StellaCea/MyFlix-API#readme",
   "dependencies": {
     "body-parser": "^1.20.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

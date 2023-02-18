@@ -27,6 +27,109 @@
         <li>The API source code must be deployed to a publicly accessible platform like GitHub.</li>
         <li>The API must be deployed to Heroku.</li>
     </ul>
+
+    <h2>API Endpoint Documentation</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Business Logic</th>
+                <th>URL</th>
+                <th>HTTP Method</th>
+                <th>Query Parameters</th>
+                <th>Request Body Data Format</th>
+                <th>Response Body Data Format</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Returns a list of all movies</td>
+                <td>/movies</td>
+                <td>GET</td>
+                <td>-</td>
+                <td>-</td>
+                <td>A JSON object holding data about all the movies</td>
+            </tr>
+
+            <tr>
+                <td>Returns a movie by title</td>
+                <td>/movies/:title</td>
+                <td>GET</td>
+                <td>:title</td>
+                <td>-</td>
+                <td>A JSON object holding data about a single movie</td>
+            </tr>
+
+            <tr>
+                <td>Returns data about a genre by name</td>
+                <td>/movies/genre/:genreName</td>
+                <td>GET</td>
+                <td>:genreName</td>
+                <td>-</td>
+                <td>A JSON object holding data about a specific genre of movie</td>
+            </tr>
+
+            <tr>
+                <td>Returns data about a director by name</td>
+                <td>/movies/directors/:directorName</td>
+                <td>GET</td>
+                <td>:directorName</td>
+                <td>-</td>
+                <td>A JSON object holding data about a specific director</td>
+            </tr>
+
+            <tr>
+                <td>Allow new user to register</td>
+                <td>/users</td>
+                <td>POST</td>
+                <td>-</td>
+                <td>A JSON object holding data about the user to be added structured like:
+                    {"Username": "String", "Password": "String", "Email": "String", "Birthday": "Date"}
+                </td>
+                <td>A JSON object holding data about a new user that was added, structured like:
+                    {"username": "Test1", "Password": "1234", "Email": "testtest@test.com", "Birthday": "1994-04-04", "favorite-movie": []} including an ID
+                </td>
+            </tr>
+
+            <tr>
+                <td>Allow users to update their user info</td>
+                <td>/users/id</td>
+                <td>PUT</td>
+                <td>:id</td>
+                <td>-</td>
+                <td>A JSON object holding data about  the updated user information</td>
+            </tr>
+
+            <tr>
+                <td>Allow users to add a movie to their list of favorites</td>
+                <td>/users/id/:movieTitle</td>
+                <td>POST</td>
+                <td>:id/:movieTitle</td>
+                <td>-</td>
+                <td>A JSON onject holding data about the user and the movie that has been added</td>
+            </tr>
+
+            <tr>
+                <td>Allow users to remove a movie from their list of favorites</td>
+                <td>/users/id/:movieTitle</td>
+                <td>DELETE</td>
+                <td>:id/:movieTitle</td>
+                <td>-</td>
+                <td>A JSON object holding data about the user and the movie that has been removed</td>
+            </tr>
+
+            <tr>
+                <td>Allow existing users to deregister</td>
+                <td>/users/:id</td>
+                <td>DELETE</td>
+                <td>:id</td>
+                <td>-</td>
+                <td>A text message indicating whether the user has successfully deregistered</td>
+            </tr>
+
+        </tbody>
+    </table>
 </body>
 </html>
 
