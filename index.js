@@ -22,6 +22,23 @@ app.use(bodyParser.json()); //middleware
 // a 'log.txt' file is created in root directory
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
 
+const cors = require("cors"); 
+//app.use(cors()); //sets the app to allow requests from all origins
+
+//Only certain origins will be given access
+let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if(!origin) return callback(null, true);
+        if(allowedOrigins.indexOf(origin) === -1){ //if the specific origin wasn't found on the list of allowed origins
+            let message = "The Cors policy for this app doesn't allow access from origin: " + origin;
+            return callback(new Error(message), false);
+        }
+        return callback(null, true);
+    }
+}));
+
 let auth = require("./auth")(app); //app makes sure Express is available in auth.js
 const passport = require("passport");
 require("./passport");
