@@ -63,8 +63,8 @@ app.get("/documentation", (req, res)=>{
 //READ return a list of all movies
 app.get("/movies", (req, res) => {
     Movies.find()
-        .then((topMovies) => { console.log(topMovies)
-            res.status(200).json({data:"testing"});
+        .then((topMovies) => {
+            res.status(200).json(topMvies);
         })
         .catch((err) => {
             console.error(err);
