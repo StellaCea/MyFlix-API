@@ -5,11 +5,8 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 //mongoose.connect('mongodb://localhost:27017/cfDB', {useNewUrlParser: true, useUnifiedTopology: true});
-//mongoose.connect("mongodb+srv://StellaCea:Makeithappen88@myflixdb.xrmftaf.mongodb.net/myFlixDB? retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.connect(process.env.CONNECTION_URI, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true
-}).catch((error) => handleError(error));;
+mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+
 
 const express = require ('express'),
     morgan = require ('morgan'),
@@ -274,6 +271,6 @@ app.use((err, req, res, next)=>{
 
 //listen for requests
 const port = process.env.PORT || 8080;
-app.listen(port, "0.0.0.0",()=>{
+app.listen(port, "0.0.0.0",() => {
     console.log("Listening on Port " + port);
 })
