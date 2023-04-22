@@ -9,7 +9,7 @@ const Users = Models.User;
 mongoose.connect(process.env.CONNECTION_URI, {
     useNewUrlParser: true, 
     useUnifiedTopology: true
-});
+}).catch((error) => handleError(error));;
 
 const express = require ('express'),
     morgan = require ('morgan'),
@@ -273,7 +273,7 @@ app.use((err, req, res, next)=>{
 
 
 //listen for requests
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0",()=>{
     console.log("Listening on Port " + port);
 })
