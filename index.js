@@ -64,8 +64,8 @@ app.get("/documentation", (req, res)=>{
 //READ return a list of all movies
 app.get("/movies", passport.authenticate("jwt", {session: false}), (req, res) => {
     Movies.find()
-        .then((topMovies) => {
-            res.status(200).json(topMvies);
+        .then((movie) => {
+            res.status(200).json(movie);
         })
         .catch((err) => {
             console.error(err);
