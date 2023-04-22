@@ -8,7 +8,8 @@ const Users = Models.User;
 //mongoose.connect("mongodb+srv://StellaCea:Makeithappen88@myflixdb.xrmftaf.mongodb.net/myFlixDB? retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connect(process.env.CONNECTION_URI, {
     useNewUrlParser: true, 
-    useUnifiedTopology: true});
+    useUnifiedTopology: true
+});
 
 const express = require ('express'),
     morgan = require ('morgan'),
