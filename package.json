@@ -4,7 +4,8 @@
   "description": "The web application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.",
   "main": "index.js",
   "engines": {
-    "node": "18.x"
+    "node": "18.x",
+    "npm": "9.6.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
