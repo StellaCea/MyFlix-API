@@ -27,7 +27,7 @@ const cors = require("cors");
 //app.use(cors()); //sets the app to allow requests from all origins
 
 //Only certain origins will be given access
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'https://my-flix-api.netlify.app', 'http://localhost:4200','https://stellacea.github.io/myFlix-Angular-client' ];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'https://my-flix-api.netlify.app', 'http://localhost:4200','https://stellacea.github.io/myFlix-Angular-client'];
 
 app.use(cors({
     origin: (origin, callback) => {
