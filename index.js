@@ -27,7 +27,7 @@ const cors = require("cors");
 //app.use(cors()); //sets the app to allow requests from all origins
 
 //Only certain origins will be given access
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'https://my-flix-api.netlify.app', 'http://localhost:4200','https://stellacea.github.io/myFlix-Angular-client'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'https://my-flix-api.netlify.app', 'http://localhost:4200','https://stellacea.github.io/myFlix-Angular-client', 'https://stellacea.github.io'];
 
 app.use(cors({
     origin: (origin, callback) => {
@@ -234,7 +234,7 @@ app.get("/users", passport.authenticate('jwt',{session:false}), (req, res) => {
 });
 
 //Get a user by username
-app.get("/users/Username", passport.authenticate('jwt',{session:false}), (req, res) => {
+app.get("/users/:Username", passport.authenticate('jwt',{session:false}), (req, res) => {
     Users.findOne({Username: req.params.Username})
         .then ((user) => {
             res.json(user);
