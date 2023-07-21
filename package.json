@@ -37,6 +37,7 @@
   },
   "keywords": [],
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "typedoc": "^0.24.8"
   }
 }

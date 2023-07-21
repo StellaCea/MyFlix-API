@@ -61,7 +61,14 @@ app.get("/documentation", (req, res)=>{
     res.sendFile("public/documenation.html", {root:_dirname});
 });
 
-//READ return a list of all movies
+/**
+ * READ movies from the Database
+ * @name movies
+ * @kind function
+ * @async
+ * @returns an array of all movies
+ */
+
 app.get("/movies", passport.authenticate('jwt',{session:false}), (req, res) => {
     Movies.find()
         .then((topMovies) => {
@@ -73,7 +80,15 @@ app.get("/movies", passport.authenticate('jwt',{session:false}), (req, res) => {
         });
 });
 
-//READ return movie by title
+/**
+ * READ movies by title
+ * @name movies/Title
+ * @kind function
+ * @async
+ * @param {string} Title
+ * @return the title of the movie
+ */
+
 app.get("/movies/:Title", passport.authenticate('jwt',{session:false}), (req, res)=>{
     Movies.findOne({Title: req.params.Title})
         .then((movie) => {
@@ -85,7 +100,15 @@ app.get("/movies/:Title", passport.authenticate('jwt',{session:false}), (req, re
         });
 });
 
-//READ return a movie by genre
+/**
+ * READ gets a movie by its genre
+ * @name movie/Genre/Name
+ * @kind function
+ * @async
+ * @param {string} Name
+ * @returns the name of the genre of a movie
+ */
+
 app.get("/movies/genre/:genreName", passport.authenticate('jwt',{session:false}), (req, res)=>{
     Movies.findOne({"Genre.Name": req.params.genreName})
         .then((movie) => {
@@ -97,7 +120,15 @@ app.get("/movies/genre/:genreName", passport.authenticate('jwt',{session:false})
         });
 });
 
-//READ return data about director by name
+/**
+ * Get a director by name
+ * @name movies/Directors/Name
+ * @kind function
+ * @async
+ * @param {string} Name
+ * @returns the name of the director of a movie
+ */
+
 app.get("/movies/directors/:directorName", passport.authenticate('jwt',{session:false}), (req, res)=>{
     Movies.findOne({"Director.Name": req.params.directorName})
         .then((movie)=> {
@@ -109,7 +140,15 @@ app.get("/movies/directors/:directorName", passport.authenticate('jwt',{session:
         });
 });
 
-//CREATE - allow new users to register
+/**
+ * Allows new users to register
+ * @name registerUser
+ * @param {string} Username username
+ * @param {string} Password password
+ * @param {string} Email email
+ * @param {date} Birthday birthday
+ * @kind function
+ */
 app.post("/users",
     [
         check("Username", "Username is required").isLength({min:5}),
@@ -151,7 +190,17 @@ app.post("/users",
         });
 });
 
-//UPDATE User's info by username
+/**
+ * Allow a user to update their info
+ * @name updatedUser
+ * @param {string} Username username
+ * @param {string} Password password
+ * @param {string} Email email
+ * @param {date} Birthday birthday
+ * @kind function
+ * @requires passport
+ */
+
 app.put("/users/:Username", passport.authenticate('jwt',{session:false}), (req, res) => {
     Users.findOneAndUpdate({Username: req.params.Username}, {$set: 
         {
@@ -173,7 +222,15 @@ app.put("/users/:Username", passport.authenticate('jwt',{session:false}), (req, 
     });
 });
 
-//Add a movie to a user's list of favorites
+/**
+ * Allows a user to add a movie to the array of favorite movies
+ * @name addFavoriteMovie
+ * @param {string} Username username
+ * @param {string} MovieID, movie ID
+ * @kind function
+ * @returns a movie id from the user's favorite movies
+ */
+
 app.post("/users/:Username/movies/:MovieID", passport.authenticate('jwt',{session:false}), (req, res) => {
     Users.findOneAndUpdate({Username:req.params.Username}, {
         $push: {FavoriteMovies: req.params.MovieID}
@@ -188,8 +245,13 @@ app.post("/users/:Username/movies/:MovieID", passport.authenticate('jwt',{sessio
         }
     });
 });
-
-//DELETE - remove a movie from the list
+/**
+ * Deletes a favorite movie from the array of favorite movies
+ * @name deleteFavoriteMovie
+ * @param {string} username
+ * @param {string} MovieID
+ * @returns deleted movie id from the user's favorite movies array
+ */
 app.delete("/users/:Username/movies/:MovieID", passport.authenticate('jwt',{session:false}), (req, res) => {
     Users.findOneAndUpdate({Username:req.params.Username}, {
         $pull: {FavoriteMovies: req.params.MovieID}
@@ -205,7 +267,12 @@ app.delete("/users/:Username/movies/:MovieID", passport.authenticate('jwt',{sess
     });
 });
 
-//DELETE - allow existing user to deregister
+/**
+ * Deletes user data from the DB by username
+ * @name users/Username
+ * @param {string} Username
+ * @returns deleted user from the DB
+ */
 app.delete("/users/:Username", passport.authenticate('jwt',{session:false}), (req, res) => {
     Users.findOneAndRemove({Username: req.params.Username})
     .then((user)=> {
@@ -221,7 +288,12 @@ app.delete("/users/:Username", passport.authenticate('jwt',{session:false}), (re
         });  
 });
 
-//Get all users
+/**
+ * Gets all the users from the DB
+ * @name users
+ * @kind function
+ * @returns an array of users
+ */
 app.get("/users", passport.authenticate('jwt',{session:false}), (req, res) => {
     Users.find()
         .then((users) => {
@@ -233,7 +305,13 @@ app.get("/users", passport.authenticate('jwt',{session:false}), (req, res) => {
         });
 });
 
-//Get a user by username
+/**
+ * Gets a user by username
+ * @name users/Username
+ * @kind function
+ * @param {string} Username
+ * @returns a user by username
+ */
 app.get("/users/:Username", passport.authenticate('jwt',{session:false}), (req, res) => {
     Users.findOne({Username: req.params.Username})
         .then ((user) => {
@@ -245,9 +323,15 @@ app.get("/users/:Username", passport.authenticate('jwt',{session:false}), (req, 
         });
 });
 
-//Delete a user by username
-app.delete("/users/:Username", passport.authenticate('jwt',{session:false}), (req, res) => {
-    Users.findByIdAndRemove({Username: req.params.Username})
+/**
+ * Allows user to deregister (deletes by id)
+ * @param {string} id
+ * @kind function
+ * @returns deletes user by id
+ */
+
+app.delete("/users/:id", passport.authenticate('jwt',{session:false}), (req, res) => {
+    Users.findByIdAndRemove({_id: req.params.id})
         .then((user) => {
             if(!user) {
                 res.status(400).send(req.params.Username + " was not found");
@@ -261,13 +345,11 @@ app.delete("/users/:Username", passport.authenticate('jwt',{session:false}), (re
         });
 });
 
-
 //error handler
 app.use((err, req, res, next)=>{
     console.error(err.stack);
     res.status(500).send("Something is broken");
 })
-
 
 //listen for requests
 const port = process.env.PORT || 8080;
